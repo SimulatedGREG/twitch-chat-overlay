@@ -1,0 +1,24 @@
+{
+  "name": "twitch-chat-overlay",
+  "version": "0.0.0",
+  "authors": [
+    "SimulatedGREG <simulatedgreg@gmail.com>"
+  ],
+  "description": "twitch chat overlay for streamers",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mustache.js": "mustache#~2.2.0",
+    "jquery": "~2.1.4",
+    "Kappa.js": "kappa.js#~1.0.8"
+  }
+}
