@@ -22,20 +22,20 @@ ul {
   left: 0;
 }
 
-.twitch-emote {
+.chatline img {
   vertical-align: middle;
 }
 
 .chatline {
-  padding: 7px 14px;
+  padding: 9px 14px;
   -webkit-animation-name: chatMessage;
           animation-name: chatMessage;
   -webkit-animation-duration: 8s;
           animation-duration: 8s;
   opacity: 0;
   background-color: rgba(33,33,49,.6);
-  margin: 9px;
-  border-radius: 25px;
+  margin: 0px 9px 10px;
+  border-radius: 20px;
   display: inline-block;
 }
 

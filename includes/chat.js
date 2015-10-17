@@ -11,15 +11,21 @@ $(document).ready(function() {
           random: "chat",
           reconnect: true
       },
-      channels: ["#simulatedgreg"]
+      channels: ["#trihex"]
   };
+  var badges;
 
   var client = new irc.client(options);
+
+  client.api({
+    url: 'https://api.twitch.tv/kraken/chat/' + options.channels[0].substr(1, options.channels[0].length-1) + '/badges'
+  }, function(err, res, body) {
+    badges = body;
+  });
 
   client.connect();
 
   client.on('message', function(channel, user, message, self) {
-    //check for emotes
     function replaceRange(s, start, end, substitute) {
       return s.substring(0, start) + substitute + s.substring(end);
     }
@@ -40,21 +46,22 @@ $(document).ready(function() {
     }
 
     var rendered = Mustache.render(message_template, {
-      user: user['display-name'],
+      user: user['display-name'] || user.username,
       message: message,
-      color: user.color,
-      type: user['message-type']
+      color: user.color || 'black',
+      type: user['message-type'],
+      subscriber: user.subscriber,
+      sub_icon: badges.subscriber.image,
+      turbo: user.turbo,
+      turbo_icon: badges.turbo.image,
+      mod: user['user-type'] == 'mod' ? true : false,
+      mod_icon: badges.mod.image
     });
-
-    console.log(user);
-
-    // http://static-cdn.jtvnw.net/emoticons/v1/{image_id}/1.0
-
 
     $('#chat-messages').append(rendered);
     $('.chatline').one('webkitAnimationEnd', function() {
+      $(this).next().detach();
       $(this).detach();
-      // $('#chat-messages br').detach();
     });
   });
 

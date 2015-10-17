@@ -8,7 +8,10 @@
   <body>
     <ul id="chat-messages">
       <script id="message" type="text/html">
-        <li class="chatline kappa {{ type }}" style="color:{{ color }};">
+        <li class="chatline {{ type }}" style="color:{{ color }};">
+          {{#mod}}<img src="{{ mod_icon }}">{{/mod}}
+          {{#subscriber}}<img src="{{ sub_icon }}">{{/subscriber}}
+          {{#turbo}}<img src="{{ turbo_icon }}">{{/turbo}}          
           <span class="username"><b>{{ user }}</b></span>
           <span class="message">{{{ message }}}</span>
         </li><br>
