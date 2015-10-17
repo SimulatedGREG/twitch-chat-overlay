@@ -9,9 +9,10 @@
     <ul id="chat-messages">
       <script id="message" type="text/html">
         <li class="chatline {{ type }}" style="color:{{ color }};">
-          {{#mod}}<img src="{{ mod_icon }}">{{/mod}}
+          {{#mod}}<img src="{{ mod_icon }}"{{#ffz}} style="background-color:#34ae0a;"{{/ffz}}>{{/mod}}
           {{#subscriber}}<img src="{{ sub_icon }}">{{/subscriber}}
-          {{#turbo}}<img src="{{ turbo_icon }}">{{/turbo}}          
+          {{#turbo}}<img src="{{ turbo_icon }}">{{/turbo}}
+          {{#broadcaster}}<img src="{{ broadcaster_icon }}">{{/broadcaster}}
           <span class="username"><b>{{ user }}</b></span>
           <span class="message">{{{ message }}}</span>
         </li><br>

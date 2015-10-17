@@ -13,7 +13,7 @@ $(document).ready(function() {
       },
       channels: ["#trihex"]
   };
-  var badges;
+  var badges, ffz;
 
   var client = new irc.client(options);
 
@@ -23,9 +23,22 @@ $(document).ready(function() {
     badges = body;
   });
 
+  $.ajax({
+    method: 'GET',
+    url: 'https://api.frankerfacez.com/v1/room/' + options.channels[0].substr(1, options.channels[0].length-1),
+    success: function(data, textStatus, xhr) {
+      ffz = data;
+    },
+    error: function(xhr, textStatus, err) {
+      ffz = null;
+    }
+  });
+
   client.connect();
 
   client.on('message', function(channel, user, message, self) {
+    message = message.replace(/<[^>]*>?/g, '');
+
     function replaceRange(s, start, end, substitute) {
       return s.substring(0, start) + substitute + s.substring(end);
     }
@@ -36,13 +49,24 @@ $(document).ready(function() {
 
     if(user.emotes) {
       var new_message = message;
-      for (var key in user.emotes) {
-        if (user.emotes.hasOwnProperty(key)) {
+      for(var key in user.emotes) {
+        if(user.emotes.hasOwnProperty(key)) {
           var re = new RegExp('\\b' + getEmoteName(user.emotes[key][0].split('-')[0], user.emotes[key][0].split('-')[1]) + '\\b', 'g');
           new_message = new_message.replace(re, '<img src="http://static-cdn.jtvnw.net/emoticons/v1/' + key + '/1.0">');
         }
       }
       message = new_message;
+    }
+
+    if(ffz) {
+      for(var set in ffz.sets) {
+        if(ffz.sets.hasOwnProperty(set)) {
+          for(var i = 0; i < ffz.sets[set].emoticons.length; i++) {
+            var reg = new RegExp('\\b' + ffz.sets[set].emoticons[i].name + '\\b', 'g');
+            message = message.replace(reg, '<img src="http:' + ffz.sets[set].emoticons[i].urls['1'] + '">');
+          }
+        }
+      }
     }
 
     var rendered = Mustache.render(message_template, {
@@ -51,11 +75,14 @@ $(document).ready(function() {
       color: user.color || 'black',
       type: user['message-type'],
       subscriber: user.subscriber,
-      sub_icon: badges.subscriber.image,
+      sub_icon: badges.subscriber !== null ? badges.subscriber.image : null,
       turbo: user.turbo,
       turbo_icon: badges.turbo.image,
       mod: user['user-type'] == 'mod' ? true : false,
-      mod_icon: badges.mod.image
+      mod_icon: !ffz ? badges.mod.image : 'http:' + ffz.room.moderator_badge,
+      broadcaster: channel.substr(1, channel.length-1) == user.username ? true : false,
+      broadcaster_icon: badges.broadcaster.image,
+      ffz: !ffz ? false : true
     });
 
     $('#chat-messages').append(rendered);
