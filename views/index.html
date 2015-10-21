@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twitch Chat Overlay</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/bower_components/skeleton/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/skeleton/css/skeleton.css">
+
+    <style>
+      fieldset {
+        border: solid 1px #d1d1d1;
+        padding: 12px;
+      }
+
+      legend {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="channel" style="display:none;">{{ channel }}</h1>
+    <div class="container">
+
+      <div class="row">
+        <div class="twelve column"><h3>Twitch Chat Overlay</h3></div>
+      </div>
+
+      <div class="row">
+        <div class="six columns">
+          <label for="channel_input">Your Twitch Channel</label>
+          <input class="u-full-width" type="text" id="channel_input">
+
+          <label for="postition">Screen Position</label>
+          <select class="u-full-width" id="position">
+            <option value="top-left">Top Left</option>
+            <option value="top-right">Top Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="bottom-right">Bottom Right</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="six columns">
+          <label for="theme">Theme</label>
+          <select class="u-full-width" id="theme">
+            <option value="original">Original</option>
+            <option value="top-right">Top Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="bottom-right">Bottom Right</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="six columns">
+          <fieldset>
+            <legend>Animation Settings</legend>
+
+            <label for="fadeInAnimation">fadeIn Animation</label>
+            <select class="u-full-width" id="fadeInAnimation">
+              <option value="original">Original</option>
+              <option value="top-right">Top Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="bottom-right">Bottom Right</option>
+            </select>
+            <label for="fadeOutAnimation">fadeOut Animation</label>
+            <select class="u-full-width" id="fadeOutAnimation">
+              <option value="original">Original</option>
+              <option value="top-right">Top Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="bottom-right">Bottom Right</option>
+            </select>
+
+            <form oninput="result.value=parseInt(fadeInDelay.value)+'ms'">
+              <label for="fadeInDelay">fadeIn Delay</label>
+              <input type="range" name="fadeInDelay" id="fadeInDelay" min="0" max="1000" value="400">
+              <output name="result"></output>
+            </form>
+            <form oninput="result.value=parseInt(fadeOutDelay.value)+'ms'">
+              <label for="fadeOutDelay">fadeOut Delay</label>
+              <input type="range" name="fadeOutDelay" id="fadeOutDelay" min="0" max="1000" value="400">
+              <output name="result"></output>
+            </form>
+
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="button-primary">Generate Link</button>
+      </div>
+
+
+    </div>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/mustache.js/mustache.min.js"></script>
+
+    <script src="/includes/settings.js"></script>
+  </body>
+</html>

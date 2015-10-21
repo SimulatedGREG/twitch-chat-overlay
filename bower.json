@@ -19,6 +19,7 @@
   "dependencies": {
     "mustache.js": "mustache#~2.2.0",
     "jquery": "~2.1.4",
-    "Kappa.js": "kappa.js#~1.0.8"
+    "Kappa.js": "kappa.js#~1.0.8",
+    "skeleton": "skeleton-css#~2.0.4"
   }
 }
