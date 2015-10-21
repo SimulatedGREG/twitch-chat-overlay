@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  var _CHANNEL = $('#channel').text();
   var message_template = $('#message').html();
   Mustache.parse(message_template);
 
@@ -8,24 +9,24 @@ $(document).ready(function() {
           debug: true
       },
       connection: {
-          random: "chat",
+          random: 'chat',
           reconnect: true
       },
-      channels: ["#trihex"]
+      channels: ['#' + _CHANNEL]
   };
   var badges, ffz;
 
   var client = new irc.client(options);
 
   client.api({
-    url: 'https://api.twitch.tv/kraken/chat/' + options.channels[0].substr(1, options.channels[0].length-1) + '/badges'
+    url: 'https://api.twitch.tv/kraken/chat/' + _CHANNEL + '/badges'
   }, function(err, res, body) {
     badges = body;
   });
 
   $.ajax({
     method: 'GET',
-    url: 'https://api.frankerfacez.com/v1/room/' + options.channels[0].substr(1, options.channels[0].length-1),
+    url: 'https://api.frankerfacez.com/v1/room/' + _CHANNEL,
     success: function(data, textStatus, xhr) {
       ffz = data;
     },
@@ -79,7 +80,7 @@ $(document).ready(function() {
       turbo: user.turbo,
       turbo_icon: badges.turbo.image,
       mod: user['user-type'] == 'mod' ? true : false,
-      mod_icon: !ffz ? badges.mod.image : 'http:' + ffz.room.moderator_badge,
+      mod_icon: (!ffz ? badges.mod.image : (!ffz.room.moderator_badge ? badges.mod.image : 'http:' + ffz.room.moderator_badge)),
       broadcaster: channel.substr(1, channel.length-1) == user.username ? true : false,
       broadcaster_icon: badges.broadcaster.image,
       ffz: !ffz ? false : true

@@ -22,7 +22,11 @@ ul {
   left: 0;
 }
 
-.chatline img {
+.chatline > img {
+  vertical-align: baseline;
+}
+
+.chatline span img {
   vertical-align: middle;
 }
 
