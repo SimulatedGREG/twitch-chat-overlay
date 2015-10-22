@@ -8,23 +8,30 @@
   <body>
     <h1 id="channel" style="display:none;">{{ channel }}</h1>
     {{={{{{ }}}}=}}
-    <ul id="chat-messages">
-      <script id="message" type="text/html">
-        <li class="chatline {{ type }}" style="color:{{ color }};">
-          {{#mod}}<img src="{{ mod_icon }}"{{#ffz}} style="background-color:#34ae0a;"{{/ffz}}>{{/mod}}
-          {{#subscriber}}<img src="{{ sub_icon }}">{{/subscriber}}
-          {{#turbo}}<img src="{{ turbo_icon }}">{{/turbo}}
-          {{#broadcaster}}<img src="{{ broadcaster_icon }}">{{/broadcaster}}
-          <span class="username"><b>{{ user }}</b></span>
-          <span class="message">{{{ message }}}</span>
-        </li><br>
-      </script>
-    </ul>
+    <div id="container">
 
+      <ul id="chat-messages">
+        <script id="message" type="text/html">
+          <li class="chatline {{ type }}" style="color:{{ color }};">
+            <div>
+              {{#mod}}<img src="{{ mod_icon }}"{{#ffz}} style="background-color:#34ae0a;"{{/ffz}}>{{/mod}}
+              {{#subscriber}}<img src="{{ sub_icon }}">{{/subscriber}}
+              {{#turbo}}<img src="{{ turbo_icon }}">{{/turbo}}
+              {{#broadcaster}}<img src="{{ broadcaster_icon }}">{{/broadcaster}}
+              <span class="username"><b>{{ user }}</b></span>
+              <span class="message">{{{ message }}}</span>
+            </div>
+          </li>
+        </script>
+      </ul>
+
+    </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="http://cdn.tmijs.org/js/0.0.24/tmi.js"></script>
     <script src="bower_components/mustache.js/mustache.min.js"></script>
+    <script src="bower_components/velocity/velocity.min.js"></script>
+    <script src="bower_components/velocity/velocity.ui.min.js"></script>
 
     <script src="includes/chat.js"></script>
   </body>

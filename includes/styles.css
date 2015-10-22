@@ -13,16 +13,19 @@ body {
   background-color: transparent;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+#container {
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.chatline > img {
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chatline div > img {
   vertical-align: baseline;
 }
 
@@ -31,16 +34,14 @@ ul {
 }
 
 .chatline {
+  display: none;
+}
+
+.chatline div {
   padding: 9px 14px;
-  -webkit-animation-name: chatMessage;
-          animation-name: chatMessage;
-  -webkit-animation-duration: 8s;
-          animation-duration: 8s;
-  opacity: 0;
   background-color: rgba(33,33,49,.6);
   margin: 0px 9px 10px;
   border-radius: 20px;
-  display: inline-block;
 }
 
 .chatline.chat .message {
@@ -49,40 +50,4 @@ ul {
 
 .chatline.chat .username:after {
   content: ': ';
-}
-
-@-webkit-keyframes chatMessage {
-  0% {
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes chatMessage {
-  0% {
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
 }

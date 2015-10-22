@@ -70,7 +70,7 @@ $(document).ready(function() {
       }
     }
 
-    var rendered = Mustache.render(message_template, {
+    var rendered = $(Mustache.render(message_template, {
       user: user['display-name'] || user.username,
       message: message,
       color: user.color || 'black',
@@ -84,13 +84,19 @@ $(document).ready(function() {
       broadcaster: channel.substr(1, channel.length-1) == user.username ? true : false,
       broadcaster_icon: badges.broadcaster.image,
       ffz: !ffz ? false : true
-    });
+    }));
 
     $('#chat-messages').append(rendered);
-    $('.chatline').one('webkitAnimationEnd', function() {
-      $(this).next().detach();
-      $(this).detach();
+    $(rendered).slideDown(300).find('div').velocity('transition.slideLeftBigIn', {
+      display: 'inline-block'
+    }).velocity('fadeOut', {
+      duration: 1000,
+      delay: 5000,
+      complete: function(elm) {
+        $(this).parent().detach();
+      }
     });
+
   });
 
 });
