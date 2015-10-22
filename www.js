@@ -10,12 +10,7 @@ app.get('/:channel', function(req, res) {
   res.render('chat.html');
 });
 
-app.get('/:channel/settings', function(req, res) {
-  res.locals = req.params;
-  res.render('index.html');
-});
-
-var server = app.listen(3000, function () {
+var server = app.listen(4000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
