@@ -1,3 +1,7 @@
+* {
+  overflow: hidden;
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -15,8 +19,20 @@ body {
 
 #container {
   position: absolute;
-  bottom: 0;
+}
+
+#container.leftBottom {
   left: 0;
+  bottom: 0;
+}
+
+#container.rightBottom {
+  right: 0;
+  bottom: 0;
+}
+
+#container.rightBottom .chatline {
+  text-align: right;
 }
 
 ul {

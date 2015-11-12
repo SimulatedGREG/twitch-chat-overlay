@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+  //url settings
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+    });
+    return vars;
+  }
+
+  var params = getUrlVars();
+
   var _CHANNEL = $('#channel').text();
   var message_template = $('#message').html();
   Mustache.parse(message_template);
@@ -87,7 +98,23 @@ $(document).ready(function() {
     }));
 
     $('#chat-messages').append(rendered);
-    $(rendered).slideDown(300).find('div').velocity('transition.slideLeftBigIn', {
+
+    var settings = {
+      screenPosition: params.screenPosition || 'bottomLeft'
+    };
+
+    switch(settings.screenPosition) {
+      case 'bottomRight':
+        settings.screenPosition = 'slideRightBigIn';
+        $('#container').addClass('rightBottom');
+        break;
+      default:
+        settings.screenPosition = 'slideLeftBigIn';
+        $('#container').addClass('leftBottom');      
+    }
+
+
+    $(rendered).slideDown(300).find('div').velocity('transition.' + settings.screenPosition, {
       display: 'inline-block'
     }).velocity('fadeOut', {
       duration: 1000,
