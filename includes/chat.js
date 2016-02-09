@@ -49,7 +49,7 @@ $(document).ready(function() {
   client.connect();
 
   client.on('message', function(channel, user, message, self) {
-    message = message.replace(/<[^>]*>?/g, '');
+    message = message.replace(/<(?:.|\n)*?>/gm, '');
 
     function replaceRange(s, start, end, substitute) {
       return s.substring(0, start) + substitute + s.substring(end);
@@ -84,7 +84,7 @@ $(document).ready(function() {
     var rendered = $(Mustache.render(message_template, {
       user: user['display-name'] || user.username,
       message: message,
-      color: user.color || 'black',
+      color: user.color || 'red',
       type: user['message-type'],
       subscriber: user.subscriber,
       sub_icon: badges.subscriber !== null ? badges.subscriber.image : null,
@@ -110,7 +110,7 @@ $(document).ready(function() {
         break;
       default:
         settings.screenPosition = 'slideLeftBigIn';
-        $('#container').addClass('leftBottom');      
+        $('#container').addClass('leftBottom');
     }
 
 
