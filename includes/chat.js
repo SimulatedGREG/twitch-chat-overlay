@@ -20,8 +20,8 @@ $(document).ready(function() {
           debug: true
       },
       connection: {
-          random: 'chat',
-          reconnect: true
+          reconnect: true,
+          cluster: 'aws'
       },
       channels: ['#' + _CHANNEL]
   };
